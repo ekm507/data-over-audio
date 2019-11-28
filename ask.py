@@ -16,7 +16,7 @@ duration = 0.01 # secounds
 # amplitude of the audio
 amplitude = 16000
 # amplitude for 0 and 1
-amp = [0.5, 1]
+amp = [0.2, 1]
 # audio file to be saved into
 audiofile = "test.wav"
 
@@ -27,7 +27,10 @@ symbol = ASK_generate_symbols(frequency, amp, duration, sampling_rate)
 data = [0, 1, 1, 0, 0, 1]
 
 import random
+random.seed(0)
 data = [random.getrandbits(1) for i in range(100)]
+
+print(data)
 
 audio = generate_audio(data, symbol)
 

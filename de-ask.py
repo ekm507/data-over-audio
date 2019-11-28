@@ -12,7 +12,7 @@ frequency = 1000.0 # Hz
 # sample duration in seconds
 duration = 0.01 # seconds
 # norm amplitude of zeros in modulated audio
-zeroamp = 0.7
+zeroamp = 0.90
 # audio file to be read from
 audiofilename = "test.wav"
 
@@ -45,10 +45,21 @@ def twoByte2int(byteH, byteL):
     else:
         return f
 
+def fourByte2int(b0, b1, b2, b3):
+    f = b0 << 24
+    f |= (b1 << 16)
+    f |= (b2 << 8)
+    f |= b3
+    if(b0 > 127):
+        return (-1) * (2 ** 32 - f)
+    else:
+        return f
+
 zipedAudio = zip(*[iter(audio_samples)] * 2)
 
 # use numpy arrays
 audio = np.array([twoByte2int(b1, b2) for b1, b2 in zipedAudio])
+
 
 """
 each symbol will be detected this way:
@@ -72,4 +83,4 @@ amps /= np.max(amps)
 # quantize amps to get data
 data = 1 * (amps > zeroamp)
 
-print(data)
+print(amps)
