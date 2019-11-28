@@ -6,6 +6,10 @@ import numpy as np
 import struct
 # for generating symbols
 from functions import ASK_generate_symbols, generate_audio
+# used for getting arguments
+import sys
+
+
 
 # The sampling rate of the analog to digital convert
 sampling_rate = 48000.0
@@ -18,7 +22,11 @@ amplitude = 16000
 # amplitude for 0 and 1
 amp = [0.2, 1]
 # audio file to be saved into
-audiofile = "test.wav"
+try:
+    audiofile = sys.argv[1]
+except IndexError:
+    audiofile = "test.wav"
+
 
 # generate ASK symbols
 symbol = ASK_generate_symbols(frequency, amp, duration, sampling_rate)
