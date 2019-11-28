@@ -6,6 +6,10 @@ import wave
 import numpy as np
 # for using with wave functions
 import struct
+# used for getting arguments
+import sys
+# used for calculating hash sum of data
+import hashlib
 
 # frequency of ASK
 frequency = 1000.0 # Hz
@@ -14,7 +18,10 @@ duration = 0.01 # seconds
 # norm amplitude of zeros in modulated audio
 zeroamp = 0.50
 # audio file to be read from
-audiofilename = "test.wav"
+try:
+    audiofilename = sys.argv[1]
+except IndexError:
+    audiofilename = "test.wav"
 
 # open audio file
 audiofile = wave.open(audiofilename, 'r')
@@ -58,4 +65,7 @@ amps /= np.max(amps)
 # quantize amps to get data
 data = 1 * (amps > zeroamp)
 
+# for testing
 print(data)
+hash = hashlib.md5(data)
+print(hash.hexdigest())
