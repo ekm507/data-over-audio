@@ -8,19 +8,21 @@ import struct
 from functions import ASK_generate_symbols, generate_audio
 # used for getting arguments
 import sys
+# used for calculating hash sum of data
+import hashlib
 
 
 
 # The sampling rate of the analog to digital convert
 sampling_rate = 48000.0
 # frequency of symbols
-frequency = 1000.0
+frequency = 3000.0
 # symbol length in secounds
-duration = 0.01 # secounds
+duration = 0.001 # secounds
 # amplitude of the audio
 amplitude = 16000
 # amplitude for 0 and 1
-amp = [0.2, 1]
+amp = [0.04, 1]
 # audio file to be saved into
 try:
     audiofile = sys.argv[1]
@@ -36,9 +38,12 @@ data = [0, 1, 1, 0, 0, 1]
 
 import random
 random.seed(0)
-data = [random.getrandbits(1) for i in range(100)]
+data = [random.getrandbits(1) for i in range(1000)]
 
 print(data)
+numdata = np.array(data)
+hash = hashlib.md5(numdata)
+print(hash.hexdigest())
 
 audio = generate_audio(data, symbol)
 

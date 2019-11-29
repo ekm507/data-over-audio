@@ -14,9 +14,9 @@ import hashlib
 # frequency of ASK
 frequency = 1000.0 # Hz
 # sample duration in seconds
-duration = 0.01 # seconds
+duration = 0.001 # seconds
 # norm amplitude of zeros in modulated audio
-zeroamp = 0.50
+zeroamp = 0.510
 # audio file to be read from
 try:
     audiofilename = sys.argv[1]
@@ -66,6 +66,6 @@ amps /= np.max(amps)
 data = 1 * (amps > zeroamp)
 
 # for testing
-print(data)
+# print(amps[700:710])
 hash = hashlib.md5(data)
 print(hash.hexdigest())
