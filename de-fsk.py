@@ -26,13 +26,10 @@ except IndexError:
 
 # open audio file
 audiofile = wave.open(audiofilename, 'r')
-
 # get number of frames in file
 fileSize = audiofile.getparams()[3]
-
 # get sample rate of recorded file
 sample_rate = audiofile.getparams()[2]
-
 
 # extract file into a list
 audio = []
@@ -42,3 +39,15 @@ for i in range(fileSize):
 
 # number of samples for each symbol
 num_symbol_samples = duration * sample_rate
+
+# DEMODULATE
+
+t = num_symbol_samples
+amplitude = []
+for i in range(int(fileSize / t)):
+    amplitude.append(np.sum(np.abs(audio[int(t * i):int(t * (i + 1))])) / t)
+
+# for each symbol in audio do:
+for i in range(fileSize / num_symbol_samples):
+    # calculate fft for symbol
+    f = np.fft.fft(audio[i * num_symbol_samples : (i + 1) * num_symbol_samples])
