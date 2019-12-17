@@ -4,6 +4,8 @@ import wave
 import numpy as np
 # for using with wave functions
 import struct
+# used for getting arguments
+import sys
 # for generating symbols
 from functions import FSK_generate_symbols, generate_audio
 
@@ -18,8 +20,12 @@ duration = 0.01 # secounds
 num_frequency = 2
 # amplitude of the audio
 amplitude = 16000
+
 # audio file to be saved into
-audiofile = "test.wav"
+try:
+    audiofile = sys.argv[1]
+except IndexError:
+    audiofile = "test.wav"
 
 # generate symbols
 symbol = FSK_generate_symbols(frequency_list, duration, sampling_rate)
