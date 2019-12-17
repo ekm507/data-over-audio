@@ -38,16 +38,12 @@ for i in range(fileSize):
     audio.append(struct.unpack('h', x))
 
 # number of samples for each symbol
-num_symbol_samples = duration * sample_rate
+num_symbol_samples = int(duration * sample_rate)
 
 # DEMODULATE
 
-t = num_symbol_samples
-amplitude = []
-for i in range(int(fileSize / t)):
-    amplitude.append(np.sum(np.abs(audio[int(t * i):int(t * (i + 1))])) / t)
-
 # for each symbol in audio do:
-for i in range(fileSize / num_symbol_samples):
+for i in range(10):
     # calculate fft for symbol
     f = np.fft.fft(audio[i * num_symbol_samples : (i + 1) * num_symbol_samples])
+    print(f[1:3])
