@@ -66,6 +66,6 @@ amps /= np.max(amps)
 data = 1 * (amps > zeroamp)
 
 # for testing
-# print(amps[700:710])
+print(data)
 hash = hashlib.md5(data)
 print(hash.hexdigest())
