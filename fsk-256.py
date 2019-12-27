@@ -16,12 +16,30 @@ sampling_rate = 48000.0
 frequency_list = [1500.0 + 45.0 * x for x in range(256)]
 
 # symbol length in secounds
+"""
+wave envelope shape for each sign is like this:
+a       ________
+m     /          \
+p___/              \___
+\time<a ><  b   ><c ><d >
+
+a: rise time
+b: time in maximum amplitude
+c: fall time
+d: time in void
+
+"""
+# rise time
 rise_duration = 0.010
+# time in maximum amplitude
 max_duration = 0.050
+# fall time
 fall_duration = 0.010
+# time in void
 void_duration = 0.010
-duration = 0.070 # secounds
-# number of symbol types. for mFSK 2 is enough.
+# total time
+total_duration = rise_duration + max_duration + fall_duration + void_duration
+# number of symbol types. for fsk-256 it's 256.
 num_frequency = 256
 # amplitude of the audio
 amplitude = 32000
@@ -43,7 +61,7 @@ random.seed(0)
 data = [random.randint(0, 256) for i in range(100)]
 print(data)
 
-data = [x for x in range(256)]
+# data = [x for x in range(256)]
 
 # generate an audio based on data fsk
 audio = generate_audio(data, symbol)
